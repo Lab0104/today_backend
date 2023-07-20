@@ -40,8 +40,6 @@ public class Category extends BaseEntity {
         this.depth = depth;
     }
 
-
-    @Builder
     public void setIdForCategoryUpdate(long id){
         this.id = id;
     }

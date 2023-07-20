@@ -54,7 +54,6 @@ public class User extends BaseEntity{
         this.passwordKey = passwordKey;
     }
 
-    @Builder
     public void setIdForUserUpdate(long id){
         this.id = id;
     }
