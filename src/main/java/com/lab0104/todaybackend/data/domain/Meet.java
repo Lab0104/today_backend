@@ -70,7 +70,6 @@ public class Meet extends BaseEntity{
         this.user = user;
     }
 
-    @Builder
     public void setMeetIdForUpdate(long id){
         this.id = id;
     }
