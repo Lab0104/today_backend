@@ -22,10 +22,18 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @PostMapping(value = "category")
+    @PostMapping(value = "/sub")
     @ApiOperation(value = "")
-     public ResponseEntity<CategoryDTO.Info> createCategory(@RequestBody CategoryDTO.Request categoryDTO) {
-        CategoryDTO.Info createCategoryDTO = categoryService.save(categoryDTO);
+     public ResponseEntity<CategoryDTO.Info> createSubCategory(@RequestBody CategoryDTO.Request categoryDTO) {
+        CategoryDTO.Info createCategoryDTO = categoryService.saveSubCategory(categoryDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(createCategoryDTO);
+    }
+
+    @PostMapping(value = "/top")
+    @ApiOperation(value = "")
+    public ResponseEntity<CategoryDTO.Info> createTopCategory(@RequestBody CategoryDTO.topCategory categoryDTO) {
+        CategoryDTO.Info createCategoryDTO = categoryService.saveTopCategory(categoryDTO);
 
         return ResponseEntity.status(HttpStatus.OK).body(createCategoryDTO);
     }
@@ -41,9 +49,9 @@ public class CategoryController {
 
     @PutMapping
     @ApiOperation(value ="")
-    public ResponseEntity<CategoryDTO.Info>changMeet(Category id, @RequestBody CategoryDTO.Request categoryDTO) throws Exception{
-        categoryService.update(id.getId(), categoryDTO);
-        CategoryDTO.Info changeCategoryDTO = categoryService.findOne(id.getId());
+    public ResponseEntity<CategoryDTO.Info> changCategory(long id, @RequestBody CategoryDTO.Request categoryDTO) throws Exception{
+        categoryService.update(id, categoryDTO);
+        CategoryDTO.Info changeCategoryDTO = categoryService.findOne(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(changeCategoryDTO);
     }
