@@ -13,6 +13,7 @@
   - Refactor: 코드 리팩토링
   - Remove: 파일 삭제
   - Docs: 문서 수정
+  - test: 깃허브 기능 테스트를 위해 임의로 코드를 수정한 경우
 
 
 - (3) Version 

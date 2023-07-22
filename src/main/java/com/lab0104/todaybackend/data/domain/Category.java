@@ -43,5 +43,4 @@ public class Category extends BaseEntity {
     public void setIdForCategoryUpdate(long id){
         this.id = id;
     }
-
 }
