@@ -36,6 +36,12 @@ public class Category extends BaseEntity {
         this.categoryGroup = categoryGroup;
     }
 
+    @Builder
+    public Category(String name, String imageUrl, Integer depth) {
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.depth = depth;
+    }
     private void setDepth(Integer depth) {
         this.depth = depth;
     }
