@@ -22,6 +22,10 @@ public class MemberDTO {
         private String status;
         private String meetName;
         private String userName;
+
+        //base entity
+        private LocalDateTime createdAt;
+        private LocalDateTime updateAT;
     }
 
     @Data
