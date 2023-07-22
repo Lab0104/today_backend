@@ -137,12 +137,12 @@ public class EntityAndDtoConversionService {
     }
 
     public Category categoryDtoToEntity(CategoryDTO.Request categoryDTO){
-        Category categoryGroup = categoryRepository.getById(categoryDTO.getCategoryGroup());
+        Category categoryGroup = categoryRepository.getById(categoryDTO.getCategoryGroup()); // 부모를 호출
 
         Category category = Category.builder()
                 .name(categoryDTO.getName())
                 .imageUrl(categoryDTO.getImageUrl())
-                .categoryGroup(categoryGroup)
+                .categoryGroup(categoryGroup) // 자식에서 부모 Category를 저장
                 .build();
 
         return category;
