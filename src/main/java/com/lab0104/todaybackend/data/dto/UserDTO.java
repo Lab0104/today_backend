@@ -45,9 +45,6 @@ public class UserDTO {
         private String loginMethod;
         private String passwordKey;
 
-        //base entity
-        private LocalDateTime createdAt;
-        private LocalDateTime updateAT;
     }
 
 }
