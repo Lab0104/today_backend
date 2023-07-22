@@ -127,9 +127,10 @@ public class EntityAndDtoConversionService {
         CategoryDTO.Info categoryDTO = CategoryDTO.Info.builder()
                 .id(category.getId())
                 .name(category.getName())
-                .depth(category.getDepth())
                 .imageUrl(category.getImageUrl())
-                .categoryGroup(category.getCategoryGroup().getId())
+                .categoryGroup(
+                        category.getCategoryGroup() == null?
+                                null:category.getCategoryGroup().getId())
                 .createdAt(category.getCreatedAt())
                 .updateAT(category.getUpdatedAt())
                 .build();
