@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
-@ToString(exclude = "...")
+@ToString
 @Entity(name = "profile")
 public class Profile extends BaseEntity{
     //Id column
