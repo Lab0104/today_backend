@@ -99,6 +99,24 @@ public class EntityAndDtoConversionService {
         return meet;
     }
 
+
+    public MeetDTO.Info meetEntityToDTOList(Meet meet){
+        return MeetDTO.Info.builder()
+                .id(meet.getId())
+                .title(meet.getTitle())
+                .subTitle(meet.getSubTitle())
+                .content(meet.getContent())
+                .date(meet.getDate())
+                .deadline(meet.getDeadline())
+                .maximum(meet.getMaximum())
+                .addressLatitude(meet.getAddressLatitude())
+                .addressLongitude(meet.getAddressLongitude())
+                .category(meet.getCategory().getId())
+                .user(meet.getUser().getId())
+                .build();
+
+    }
+
     //Member Conversion
     public MemberDTO.Info memberEntityToDTO(Member member){
         MemberDTO.Info memberDTO = MemberDTO.Info.builder()
