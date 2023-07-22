@@ -31,10 +31,20 @@ public class CategoryServiceImpl implements CategoryService {
 
         return findCategoryDTO;
     }
-
-    //TODO: top category의 group 설정 시 오류가 생김
     @Override
-    public CategoryDTO.Info save(CategoryDTO.Request categoryDTO){
+    public CategoryDTO.Info saveTopCategory(CategoryDTO.topCategory categoryDTO){
+        Category category = Category.builder()
+                .name(categoryDTO.getName())
+                .imageUrl(categoryDTO.getImageUrl())
+                .categoryGroup(null)
+                .build();
+        categoryRepository.save(category);
+
+        return dataConversion.categoryEntityToDTO(category);
+    }
+
+    @Override
+    public CategoryDTO.Info saveSubCategory(CategoryDTO.Request categoryDTO){
         Category category = categoryRepository.save(dataConversion.categoryDtoToEntity(categoryDTO));
         CategoryDTO.Info saveCategoryDTO = dataConversion.categoryEntityToDTO(category);
         return saveCategoryDTO;

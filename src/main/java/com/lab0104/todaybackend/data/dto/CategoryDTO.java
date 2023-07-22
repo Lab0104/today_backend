@@ -44,8 +44,8 @@ public class CategoryDTO {
     @NoArgsConstructor(force = true)
     @AllArgsConstructor
     @Builder
-    @ApiModel("TopCategoryRequest")
-    public static class TopCategoryRequest{
+    @ApiModel("topCategory")
+    public static class topCategory{
         private String name;
         private String imageUrl;
 
