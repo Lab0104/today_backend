@@ -3,7 +3,6 @@ package com.lab0104.todaybackend.data.dto;
 import com.lab0104.todaybackend.data.domain.Meet;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
-import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 
