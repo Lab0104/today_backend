@@ -58,6 +58,30 @@ public class MeetDTO {
         private LocalDateTime updateAT;
     }
 
+    @Data
+    @NoArgsConstructor(force = true)
+    @AllArgsConstructor
+    @Builder
+    @ApiModel("MeetTest")
+    public static class test{
+        private String title;
+        private String subTitle;
+        private String content;
+        private LocalDateTime date;
+        private LocalDateTime deadline;
+        private int maximum;
+        private String address;
+        private double addressLatitude;
+        private double addressLongitude;
+        private long category;
+        private long user;
+
+        //base entity
+        private LocalDateTime createdAt;
+        private LocalDateTime updateAT;
+    }
+
+
     public static Info entityToDTOList(Meet meet){
         return Info.builder()
                 .id(meet.getId())
@@ -74,6 +98,8 @@ public class MeetDTO {
                 .build();
 
     }
+
+
 
 
 }
