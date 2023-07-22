@@ -1,9 +1,6 @@
 package com.lab0104.todaybackend.controller;
 
-
-import com.lab0104.todaybackend.data.domain.Category;
 import com.lab0104.todaybackend.data.dto.CategoryDTO;
-import com.lab0104.todaybackend.data.dto.MeetDTO;
 import com.lab0104.todaybackend.service.CategoryService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;

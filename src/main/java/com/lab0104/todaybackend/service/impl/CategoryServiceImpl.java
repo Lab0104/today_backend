@@ -1,9 +1,7 @@
 package com.lab0104.todaybackend.service.impl;
 
 import com.lab0104.todaybackend.data.domain.Category;
-import com.lab0104.todaybackend.data.domain.User;
 import com.lab0104.todaybackend.data.dto.CategoryDTO;
-import com.lab0104.todaybackend.data.dto.UserDTO;
 import com.lab0104.todaybackend.data.repository.CategoryRepository;
 import com.lab0104.todaybackend.service.CategoryService;
 import com.lab0104.todaybackend.service.EntityAndDtoConversionService;
