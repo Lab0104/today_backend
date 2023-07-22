@@ -33,10 +33,6 @@ public class CategoryDTO {
         private String name;
         private String imageUrl;
         private Long categoryGroup;
-
-        //base entity
-        private LocalDateTime createdAt;
-        private LocalDateTime updateAT;
     }
 
 
@@ -48,10 +44,6 @@ public class CategoryDTO {
     public static class topCategory{
         private String name;
         private String imageUrl;
-
-        //base entity
-        private LocalDateTime createdAt;
-        private LocalDateTime updateAT;
     }
 
 }
