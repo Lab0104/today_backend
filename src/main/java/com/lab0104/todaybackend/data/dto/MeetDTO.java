@@ -34,7 +34,31 @@ public class MeetDTO {
         private LocalDateTime updateAT;
 
     }
+    @Data
+    @NoArgsConstructor(force = true)
+    @AllArgsConstructor
+    @Builder
+    @ApiModel("MeetInfo")
+    public static class test {
 
+        private long id;
+        private String title;
+        private String subTitle;
+        private String content;
+        private LocalDateTime date;
+        private LocalDateTime deadline;
+        private int maximum;
+        private String address;
+        private double addressLatitude;
+        private double addressLongitude;
+        private long category;
+        private long user;
+
+        //base entity
+        private LocalDateTime createdAt;
+        private LocalDateTime updateAT;
+
+    }
     @Data
     @NoArgsConstructor(force = true)
     @AllArgsConstructor
