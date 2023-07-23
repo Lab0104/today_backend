@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Controller
 @RequestMapping("/category")
@@ -43,6 +45,19 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(getCategoryDTO);
     }
 
+    @GetMapping(value = "/list/sub-category")
+    @ApiOperation(value = "")
+    public ResponseEntity<List<CategoryDTO.Info>> getSubCategoryListByGroup(int topCategoryId){
+        List<CategoryDTO.Info> pageRequestDTO = categoryService.findSubCategoryListByGroup(topCategoryId);
+        return ResponseEntity.status(HttpStatus.OK).body(pageRequestDTO);
+    }
+
+    @GetMapping(value = "/list/top-category")
+    @ApiOperation(value = "")
+    public ResponseEntity<List<CategoryDTO.Info>> getTopCategoryList(){
+        List<CategoryDTO.Info> pageRequestDTO = categoryService.findTopCategoryList();
+        return ResponseEntity.status(HttpStatus.OK).body(pageRequestDTO);
+    }
 
     @PutMapping
     @ApiOperation(value ="")
@@ -52,7 +67,6 @@ public class CategoryController {
 
         return ResponseEntity.status(HttpStatus.OK).body(changeCategoryDTO);
     }
-
 
     @DeleteMapping
     @ApiOperation(value = "")

@@ -6,8 +6,15 @@ import com.lab0104.todaybackend.data.repository.CategoryRepository;
 import com.lab0104.todaybackend.service.CategoryService;
 import com.lab0104.todaybackend.service.EntityAndDtoConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -59,6 +66,32 @@ public class CategoryServiceImpl implements CategoryService {
 
     public void delete(Long id) throws Exception{
         categoryRepository.deleteById(id);
+    }
+
+    public List<CategoryDTO.Info> findSubCategoryListByGroup(long topCategoryId){
+        Category topategory = categoryRepository.getById(topCategoryId);
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(0, Math.toIntExact(categoryRepository.countByDepth(2)), sort);
+        Page<CategoryDTO.Info> response = categoryRepository.findByCategoryGroup(topategory, pageable).map(dataConversion::categoryEntityToDTO);
+
+        List<CategoryDTO.Info> pageRequestDTO = new ArrayList<>();
+        for(CategoryDTO.Info i : response){
+            pageRequestDTO.add(i);
+        }
+        return pageRequestDTO;
+    }
+
+    public List<CategoryDTO.Info> findTopCategoryList(){
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(0, Math.toIntExact(categoryRepository.countByDepth(1)), sort);
+        Page<CategoryDTO.Info> response = categoryRepository.findByDepth(1, pageable).map(dataConversion::categoryEntityToDTO);
+
+        List<CategoryDTO.Info> pageRequestDTO = new ArrayList<>();
+        for(CategoryDTO.Info i : response){
+            pageRequestDTO.add(i);
+        }
+        return pageRequestDTO;
     }
 
 }

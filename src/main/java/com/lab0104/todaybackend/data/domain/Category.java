@@ -36,16 +36,11 @@ public class Category extends BaseEntity {
         this.imageUrl = imageUrl;
         this.categoryGroup = categoryGroup;
 
-        setDepth(1);
-    }
-
-    //top 카테고리 생성을 위한 빌더
-    @Builder
-    public Category(String name, String imageUrl){
-        this.name = name;
-        this.imageUrl = imageUrl;
-
-        setDepth(0);
+        if(categoryGroup != null){
+            setDepth(2); // 하위 카테고리가 존재할 경우
+        }else{
+            setDepth(1); // 최상위 카테고리일 경우
+        }
     }
 
     private void setDepth(Integer depth) {
