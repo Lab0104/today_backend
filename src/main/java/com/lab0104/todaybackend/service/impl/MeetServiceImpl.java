@@ -68,7 +68,7 @@ public class MeetServiceImpl implements MeetService {
     public List<MeetDTO.Info> findList(int number, int size){
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageableWithSort = PageRequest.of(number, size, sort);
-        Page<MeetDTO.Info> response = meetRepository.findAll(pageableWithSort).map(dataConversion::meetEntityToDTO);
+        Page<MeetDTO.Info> response = meetRepository.findAll(pageableWithSort).map(MeetDTO::entityToDTOList);
 
         List<MeetDTO.Info> pageRequestDTO = new ArrayList<>();
         for (MeetDTO.Info i : response){
@@ -83,7 +83,7 @@ public class MeetServiceImpl implements MeetService {
 
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageableWithSort = PageRequest.of(number, size, sort);
-        Page<MeetDTO.Info> response = meetRepository.findByCategory(category, pageableWithSort).map(dataConversion::meetEntityToDTO);
+        Page<MeetDTO.Info> response = meetRepository.findByCategory(category, pageableWithSort).map(MeetDTO::entityToDTOList);
 
         List<MeetDTO.Info> pageRequestDTO = new ArrayList<>();
         for (MeetDTO.Info i : response){
@@ -98,7 +98,7 @@ public class MeetServiceImpl implements MeetService {
 
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageableWithSort = PageRequest.of(number, size, sort);
-        Page<MeetDTO.Info> response = meetRepository.findByUser(user, pageableWithSort).map(dataConversion::meetEntityToDTO);
+        Page<MeetDTO.Info> response = meetRepository.findByUser(user, pageableWithSort).map(MeetDTO::entityToDTOList);
 
         List<MeetDTO.Info> pageRequestDTO = new ArrayList<>();
         for (MeetDTO.Info i : response){

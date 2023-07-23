@@ -1,5 +1,6 @@
 package com.lab0104.todaybackend.data.dto;
 
+import com.lab0104.todaybackend.data.domain.Meet;
 import com.lab0104.todaybackend.data.domain.Member;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
@@ -21,10 +22,6 @@ public class MemberDTO {
         private String status;
         private String meetName;
         private String userName;
-
-        //base entity
-        private LocalDateTime createdAt;
-        private LocalDateTime updateAT;
     }
 
     @Data
