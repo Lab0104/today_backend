@@ -1,6 +1,5 @@
 package com.lab0104.todaybackend.data.dto;
 
-import com.lab0104.todaybackend.data.domain.Meet;
 import com.lab0104.todaybackend.data.domain.Member;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
