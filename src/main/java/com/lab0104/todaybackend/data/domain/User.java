@@ -1,6 +1,5 @@
 package com.lab0104.todaybackend.data.domain;
 
-
 import lombok.*;
 
 import javax.persistence.*;
@@ -57,5 +56,6 @@ public class User extends BaseEntity{
     public void setIdForUserUpdate(long id){
         this.id = id;
     }
+
 
 }

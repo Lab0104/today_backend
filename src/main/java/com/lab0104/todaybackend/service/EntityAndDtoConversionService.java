@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 public class EntityAndDtoConversionService {
 
     final private MeetRepository meetRepository;
-
     final private UserRepository userRepository;
     final private CategoryRepository categoryRepository;
 
@@ -53,7 +52,7 @@ public class EntityAndDtoConversionService {
                 .address(userDTO.getAddress())
                 .addressLatitude(userDTO.getAddressLatitude())
                 .addressLongitude(userDTO.getAddressLatitude())
-                .score(userDTO.getScore())
+                .score(0)
                 .loginMethod(userDTO.getLoginMethod())
                 .passwordKey(userDTO.getPasswordKey())
                 .build();
@@ -99,24 +98,6 @@ public class EntityAndDtoConversionService {
         return meet;
     }
 
-
-    public MeetDTO.Info meetEntityToDTOList(Meet meet){
-        return MeetDTO.Info.builder()
-                .id(meet.getId())
-                .title(meet.getTitle())
-                .subTitle(meet.getSubTitle())
-                .content(meet.getContent())
-                .date(meet.getDate())
-                .deadline(meet.getDeadline())
-                .maximum(meet.getMaximum())
-                .addressLatitude(meet.getAddressLatitude())
-                .addressLongitude(meet.getAddressLongitude())
-                .category(meet.getCategory().getId())
-                .user(meet.getUser().getId())
-                .build();
-
-    }
-
     //Member Conversion
     public MemberDTO.Info memberEntityToDTO(Member member){
         MemberDTO.Info memberDTO = MemberDTO.Info.builder()
@@ -145,10 +126,10 @@ public class EntityAndDtoConversionService {
         CategoryDTO.Info categoryDTO = CategoryDTO.Info.builder()
                 .id(category.getId())
                 .name(category.getName())
+                .depth(category.getDepth())
                 .imageUrl(category.getImageUrl())
-                .categoryGroup(
-                        category.getCategoryGroup() == null?
-                                null:category.getCategoryGroup().getId())
+                .categoryGroup(category.getCategoryGroup() == null?
+                        null : category.getCategoryGroup().getId())
                 .createdAt(category.getCreatedAt())
                 .updateAT(category.getUpdatedAt())
                 .build();
