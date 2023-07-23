@@ -54,7 +54,7 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable Long id) throws Exception {
         userService.delete(id);
 
-        return ResponseEntity.status(HttpStatus.OK).body("정상적으로 삭제되었습니다.");
+        return ResponseEntity.status(HttpStatus.OK).body("회원 탈퇴가 완료되었습니다.");
     }
 
 
