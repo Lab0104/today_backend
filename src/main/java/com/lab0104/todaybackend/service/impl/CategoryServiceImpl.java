@@ -1,20 +1,15 @@
 package com.lab0104.todaybackend.service.impl;
 
 import com.lab0104.todaybackend.data.domain.Category;
+import com.lab0104.todaybackend.data.domain.User;
 import com.lab0104.todaybackend.data.dto.CategoryDTO;
+import com.lab0104.todaybackend.data.dto.UserDTO;
 import com.lab0104.todaybackend.data.repository.CategoryRepository;
 import com.lab0104.todaybackend.service.CategoryService;
 import com.lab0104.todaybackend.service.EntityAndDtoConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Transactional
@@ -36,20 +31,10 @@ public class CategoryServiceImpl implements CategoryService {
 
         return findCategoryDTO;
     }
-    @Override
-    public CategoryDTO.Info saveTopCategory(CategoryDTO.topCategory categoryDTO){
-        Category category = Category.builder()
-                .name(categoryDTO.getName())
-                .imageUrl(categoryDTO.getImageUrl())
-                .categoryGroup(null)
-                .build();
-        categoryRepository.save(category);
 
-        return dataConversion.categoryEntityToDTO(category);
-    }
-
+    //TODO: top category의 group 설정 시 오류가 생김
     @Override
-    public CategoryDTO.Info saveSubCategory(CategoryDTO.Request categoryDTO){
+    public CategoryDTO.Info save(CategoryDTO.Request categoryDTO){
         Category category = categoryRepository.save(dataConversion.categoryDtoToEntity(categoryDTO));
         CategoryDTO.Info saveCategoryDTO = dataConversion.categoryEntityToDTO(category);
         return saveCategoryDTO;
@@ -66,32 +51,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     public void delete(Long id) throws Exception{
         categoryRepository.deleteById(id);
-    }
-
-    public List<CategoryDTO.Info> findSubCategoryListByGroup(long topCategoryId){
-        Category topategory = categoryRepository.getById(topCategoryId);
-
-        Sort sort = Sort.by(Sort.Direction.DESC, "id");
-        Pageable pageable = PageRequest.of(0, Math.toIntExact(categoryRepository.countByDepth(2)), sort);
-        Page<CategoryDTO.Info> response = categoryRepository.findByCategoryGroup(topategory, pageable).map(dataConversion::categoryEntityToDTO);
-
-        List<CategoryDTO.Info> pageRequestDTO = new ArrayList<>();
-        for(CategoryDTO.Info i : response){
-            pageRequestDTO.add(i);
-        }
-        return pageRequestDTO;
-    }
-
-    public List<CategoryDTO.Info> findTopCategoryList(){
-        Sort sort = Sort.by(Sort.Direction.DESC, "id");
-        Pageable pageable = PageRequest.of(0, Math.toIntExact(categoryRepository.countByDepth(1)), sort);
-        Page<CategoryDTO.Info> response = categoryRepository.findByDepth(1, pageable).map(dataConversion::categoryEntityToDTO);
-
-        List<CategoryDTO.Info> pageRequestDTO = new ArrayList<>();
-        for(CategoryDTO.Info i : response){
-            pageRequestDTO.add(i);
-        }
-        return pageRequestDTO;
     }
 
 }

@@ -7,9 +7,9 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
-@ToString
+@ToString(exclude = "...")
 @Entity(name = "member")
-public class Member extends BaseEntity{
+public class Member {
 
     //Id column
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

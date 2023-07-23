@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 public class EntityAndDtoConversionService {
 
     final private MeetRepository meetRepository;
+
     final private UserRepository userRepository;
     final private CategoryRepository categoryRepository;
 
@@ -52,7 +53,7 @@ public class EntityAndDtoConversionService {
                 .address(userDTO.getAddress())
                 .addressLatitude(userDTO.getAddressLatitude())
                 .addressLongitude(userDTO.getAddressLatitude())
-                .score(0)
+                .score(userDTO.getScore())
                 .loginMethod(userDTO.getLoginMethod())
                 .passwordKey(userDTO.getPasswordKey())
                 .build();
@@ -128,8 +129,7 @@ public class EntityAndDtoConversionService {
                 .name(category.getName())
                 .depth(category.getDepth())
                 .imageUrl(category.getImageUrl())
-                .categoryGroup(category.getCategoryGroup() == null?
-                        null : category.getCategoryGroup().getId())
+                .categoryGroup(category.getCategoryGroup().getId())
                 .createdAt(category.getCreatedAt())
                 .updateAT(category.getUpdatedAt())
                 .build();
