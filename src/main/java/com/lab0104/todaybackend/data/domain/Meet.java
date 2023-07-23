@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
-@ToString(exclude = "...")
+@ToString
 @Entity(name = "meet")
 public class Meet extends BaseEntity{
     //Id column
@@ -70,7 +70,6 @@ public class Meet extends BaseEntity{
         this.user = user;
     }
 
-    @Builder
     public void setMeetIdForUpdate(long id){
         this.id = id;
     }

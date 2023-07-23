@@ -33,10 +33,6 @@ public class CategoryDTO {
         private String name;
         private String imageUrl;
         private Long categoryGroup;
-
-        //base entity
-        private LocalDateTime createdAt;
-        private LocalDateTime updateAT;
     }
 
 
@@ -44,14 +40,10 @@ public class CategoryDTO {
     @NoArgsConstructor(force = true)
     @AllArgsConstructor
     @Builder
-    @ApiModel("TopCategoryRequest")
-    public static class TopCategoryRequest{
+    @ApiModel("topCategory")
+    public static class topCategory{
         private String name;
         private String imageUrl;
-
-        //base entity
-        private LocalDateTime createdAt;
-        private LocalDateTime updateAT;
     }
 
 }

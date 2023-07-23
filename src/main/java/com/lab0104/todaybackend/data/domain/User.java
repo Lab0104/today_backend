@@ -1,13 +1,12 @@
 package com.lab0104.todaybackend.data.domain;
 
-
 import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
-@ToString(exclude = "...")
+@ToString
 @Entity(name = "user")
 public class User extends BaseEntity{
     //Id column
@@ -54,9 +53,9 @@ public class User extends BaseEntity{
         this.passwordKey = passwordKey;
     }
 
-    @Builder
     public void setIdForUserUpdate(long id){
         this.id = id;
     }
+
 
 }
