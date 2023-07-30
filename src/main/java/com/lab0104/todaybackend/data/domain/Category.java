@@ -43,6 +43,7 @@ public class Category extends BaseEntity {
         }
     }
 
+
     private void setDepth(Integer depth) {
         this.depth = depth;
     }

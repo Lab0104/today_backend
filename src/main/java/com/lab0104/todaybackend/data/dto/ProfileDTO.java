@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 public class ProfileDTO {
 
     @Data
@@ -18,6 +20,10 @@ public class ProfileDTO {
         private String backgroundUrl;
         private String profileUrl;
         private long user;
+
+        //base entity
+        private LocalDateTime createdAt;
+        private LocalDateTime updateAt;
     }
 
 
