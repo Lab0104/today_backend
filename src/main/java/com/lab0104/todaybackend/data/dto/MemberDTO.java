@@ -24,7 +24,7 @@ public class MemberDTO {
 
         //base entity
         private LocalDateTime createdAt;
-        private LocalDateTime updateAT;
+        private LocalDateTime updateAt;
     }
 
     @Data

@@ -15,4 +15,11 @@ public interface MeetService {
     List<MeetDTO.Info> findListByCategory(int number, int size, long categoryId);
     List<MeetDTO.Info> findListByUser(int number, int size, long userId);
 
+    //Card List
+    List<MeetDTO.MainCard> findListForMainCard(int number, int size);
+    List<MeetDTO.MainCard> findMainCardListByCategory(int number, int size, long categoryId);
+
+    List<MeetDTO.MapCard> findListForMapCard(int number, int size, String Keyword);
+
+
 }

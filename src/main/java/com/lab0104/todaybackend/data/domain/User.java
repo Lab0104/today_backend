@@ -25,12 +25,6 @@ public class User extends BaseEntity{
     @Column(nullable = true, columnDefinition = "TEXT")
     private String address;
 
-    @Column(name = "address_latitude", nullable = true)
-    private double addressLatitude;
-
-    @Column(name = "address_longitude", nullable = true)
-    private double addressLongitude;
-
     @Column(nullable = false)
     private float score;
 
@@ -40,17 +34,18 @@ public class User extends BaseEntity{
     @Column(name = "password_key", length = 45, nullable = false)
     private String passwordKey;
 
+    @Column(name = "image_url", columnDefinition = "TEXT")
+    private String imageUrl;
+
     @Builder
-    public User(String email, String nickname, String address,
-                double addressLatitude, double addressLongitude, float score, String loginMethod, String passwordKey){
+    public User(String email, String nickname, String address, float score, String loginMethod, String passwordKey, String imageUrl){
         this.email = email;
         this.nickname = nickname;
         this.address = address;
-        this.addressLatitude = addressLatitude;
-        this.addressLongitude = addressLongitude;
         this.score = score;
         this.loginMethod = loginMethod;
         this.passwordKey = passwordKey;
+        this.imageUrl = imageUrl;
     }
 
     public void setIdForUserUpdate(long id){

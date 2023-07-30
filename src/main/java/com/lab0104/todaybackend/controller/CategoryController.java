@@ -33,8 +33,7 @@ public class CategoryController {
 
     @GetMapping(value = "/list/sub-category")
     @ApiOperation(value = "세부 카테고리 조회", notes = "해당 그룹의 세부 카테고리 정보를 리스트로 조회합니다.")
-    @ApiImplicitParam(name = "id", value = "카테고리 그룹 id")
-    public ResponseEntity<List<CategoryDTO.Info>> getSubCategoryListByGroup(@PathVariable int topCategoryId){
+    public ResponseEntity<List<CategoryDTO.Info>> getSubCategoryListByGroup(int topCategoryId){
         List<CategoryDTO.Info> pageRequestDTO = categoryService.findSubCategoryListByGroup(topCategoryId);
         return ResponseEntity.status(HttpStatus.OK).body(pageRequestDTO);
     }

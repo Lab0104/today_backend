@@ -20,7 +20,6 @@ import java.util.List;
 @Transactional
 public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
     final private CategoryRepository categoryRepository;
     final private EntityAndDtoConversionService dataConversion;
 
