@@ -40,7 +40,7 @@ public class UserController {
     @PutMapping
     @ApiOperation(value = "사용자 정보 수정", notes = "id와 사용자 정보를 입력받아 해당 id의 사용자 정보를 수정합니다.")
     @ApiImplicitParam(name = "id", value = "사용자 생성 시 발급되는 id")
-    public ResponseEntity<UserDTO.Info> changeUser(@PathVariable long id, @RequestBody UserDTO.Request userDTO) throws Exception{
+    public ResponseEntity<UserDTO.Info> changeUser(long id, @RequestBody UserDTO.Request userDTO) throws Exception{
         userService.update(id, userDTO);
         UserDTO.Info changeUserDTO = userService.findOne(id);
 

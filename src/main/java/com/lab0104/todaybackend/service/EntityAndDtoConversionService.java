@@ -35,14 +35,11 @@ public class EntityAndDtoConversionService {
 
     //User Conversion
     public UserDTO.Info userEntityToDTO(User user){
-
         return UserDTO.Info.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .nickname(user.getNickname())
                 .address(user.getAddress())
-                .addressLatitude(user.getAddressLatitude())
-                .addressLongitude(user.getAddressLatitude())
                 .score(user.getScore())
                 .loginMethod(user.getLoginMethod())
                 .passwordKey(user.getPasswordKey())
@@ -56,8 +53,6 @@ public class EntityAndDtoConversionService {
                 .email(userDTO.getEmail())
                 .nickname(userDTO.getNickname())
                 .address(userDTO.getAddress())
-                .addressLatitude(userDTO.getAddressLatitude())
-                .addressLongitude(userDTO.getAddressLatitude())
                 .score(0)
                 .loginMethod(userDTO.getLoginMethod())
                 .passwordKey(userDTO.getPasswordKey())
@@ -109,7 +104,7 @@ public class EntityAndDtoConversionService {
         if(diff.getDays() == 0){
             limit = "D-DAY 마감임박";
         } else if (diff.getDays() >= 1){
-            limit = "D -"+diff.getDays()+"모집중";
+            limit = "D - "+diff.getDays()+"모집중";
         } else {
             limit = "모집 마감";
         }
@@ -140,9 +135,9 @@ public class EntityAndDtoConversionService {
         //setUploadAt
         if(setUploadAt.toHours() >= 1){
             //TODO: 하루 전이면 몇 일전으로 변경해야 함.
-            uploadAt = setUploadAt.toHours()+"시간 전";
+            uploadAt = setUploadAt.toHours()+" 시간 전";
         }else{
-            uploadAt = setUploadAt.toMinutes()+"분 전";
+            uploadAt = setUploadAt.toMinutes()+" 분 전";
         }
 
         return MeetDTO.MapCard.builder()

@@ -25,12 +25,6 @@ public class User extends BaseEntity{
     @Column(nullable = true, columnDefinition = "TEXT")
     private String address;
 
-    @Column(name = "address_latitude", nullable = true)
-    private double addressLatitude;
-
-    @Column(name = "address_longitude", nullable = true)
-    private double addressLongitude;
-
     @Column(nullable = false)
     private float score;
 
@@ -44,13 +38,10 @@ public class User extends BaseEntity{
     private String imageUrl;
 
     @Builder
-    public User(String email, String nickname, String address,
-                double addressLatitude, double addressLongitude, float score, String loginMethod, String passwordKey, String imageUrl){
+    public User(String email, String nickname, String address, float score, String loginMethod, String passwordKey, String imageUrl){
         this.email = email;
         this.nickname = nickname;
         this.address = address;
-        this.addressLatitude = addressLatitude;
-        this.addressLongitude = addressLongitude;
         this.score = score;
         this.loginMethod = loginMethod;
         this.passwordKey = passwordKey;

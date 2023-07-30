@@ -20,8 +20,6 @@ public class UserDTO {
         private String email;
         private String nickname;
         private String address;
-        private double addressLatitude;
-        private double addressLongitude;
         private float score;
         private String loginMethod;
         private String passwordKey;
@@ -46,9 +44,6 @@ public class UserDTO {
 
         @ApiModelProperty(example = "주소")
         private String address;
-
-        private double addressLatitude;
-        private double addressLongitude;
 
         @ApiModelProperty(example = "로그인 방식")
         private String loginMethod;

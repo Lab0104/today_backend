@@ -30,14 +30,14 @@ public class MeetCardController {
         return ResponseEntity.status(HttpStatus.OK).body(pageRequestDTO);
     }
 
-    @GetMapping(value = "/main/list/category")
+    @GetMapping(value = "/main/list/category/{number}/{size}/{categoryId}")
     @ApiOperation(value = "메인 페이지 모임 카드 카테고리 별 리스트 조회", notes = "메인페이지 모임카드를 카테고리 별로 조회합니다.")
     public ResponseEntity<List<MeetDTO.MainCard>> getMainCardListByCategory(@PathVariable int number, @PathVariable int size, @PathVariable long categoryId){
         List<MeetDTO.MainCard> pageRequestDTO = meetService.findMainCardListByCategory(number, size, categoryId);
         return ResponseEntity.status(HttpStatus.OK).body(pageRequestDTO);
     }
 
-    @GetMapping(value = "/map")
+    @GetMapping(value = "/map/{number}/{size}/{keyword}")
     @ApiOperation(value = "작성자 별 모임글 리스트 조회", notes = "작성자 id를 사용하여 특정 사용자가 작성한 모임글을 최신 순으로 조회합니다.")
     public ResponseEntity<List<MeetDTO.MapCard>> getMapCardList(
             @PathVariable int number,
