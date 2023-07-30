@@ -34,6 +34,15 @@ public class MeetController {
         return ResponseEntity.status(HttpStatus.OK).body(getMeetDTO);
     }
 
+    @GetMapping(value = "/{id}")
+    @ApiOperation(value = "모임글 1건 조회", notes = "id에 해당하는 모임글 1건의 상세 정보를 조회합니다.")
+    @ApiImplicitParam(name = "id", value = "모임 생성 시 자동으로 발급되는 id")
+    public ResponseEntity<MeetDTO.Info> getOneMeet(@PathVariable  Long id){
+        MeetDTO.Info getMeetDTO = meetService.findOne(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(getMeetDTO);
+    }
+
     @PostMapping
     @ApiOperation(value = "모임글 생성", notes = "모임 글을 생성합니다.")
     public ResponseEntity<MeetDTO.Info> createMeet(@RequestBody MeetDTO.Request meetDTO) {

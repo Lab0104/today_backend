@@ -26,27 +26,24 @@ public class MeetListController {
     public MeetListController(MeetService meetService) {
         this.meetService = meetService;
     }
-
+  
     @GetMapping
     @ApiOperation(value = "모임글 전체 리스트 조회", notes = "최신글 순으로 모임글 전체를 조회합니다.")
-    public ResponseEntity<List<MeetDTO.Info>> getMeetList(@PathVariable int number, @PathVariable int size){
+    public ResponseEntity<List<MeetDTO.Info>> getMeetList(int number, int size){
         List<MeetDTO.Info> pageRequestDTO = meetService.findList(number, size);
         return ResponseEntity.status(HttpStatus.OK).body(pageRequestDTO);
     }
 
     @GetMapping(value = "/category")
     @ApiOperation(value = "카테고리 별 모임글 리스트 조회", notes = "카테고리 별 모임글을 최신 순으로 조회합니다.")
-    public ResponseEntity<List<MeetDTO.Info>> getMeetListByCategory(
-            @PathVariable int number,
-            @PathVariable int size,
-            @PathVariable long categoryId){
+    public ResponseEntity<List<MeetDTO.Info>> getMeetListByCategory(int number, int size, long categoryId){
         List<MeetDTO.Info> pageRequestDTO = meetService.findListByCategory(number, size, categoryId);
         return ResponseEntity.status(HttpStatus.OK).body(pageRequestDTO);
     }
 
     @GetMapping(value = "/user")
     @ApiOperation(value = "작성자 별 모임글 리스트 조회", notes = "작성자 id를 사용하여 특정 사용자가 작성한 모임글을 최신 순으로 조회합니다.")
-    public ResponseEntity<List<MeetDTO.Info>> getMeetListByUser(int number, int size, @PathVariable long userId){
+    public ResponseEntity<List<MeetDTO.Info>> getMeetListByUser(int number, int size, long userId){
         List<MeetDTO.Info> pageRequestDTO = meetService.findListByUser(number, size, userId);
         return ResponseEntity.status(HttpStatus.OK).body(pageRequestDTO);
     }

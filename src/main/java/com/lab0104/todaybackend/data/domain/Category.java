@@ -42,8 +42,7 @@ public class Category extends BaseEntity {
             setDepth(1); // 최상위 카테고리일 경우
         }
     }
-
-
+  
     private void setDepth(Integer depth) {
         this.depth = depth;
     }

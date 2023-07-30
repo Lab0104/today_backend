@@ -20,6 +20,4 @@ public interface MeetService {
     List<MeetDTO.MainCard> findMainCardListByCategory(int number, int size, long categoryId);
 
     List<MeetDTO.MapCard> findListForMapCard(int number, int size, String Keyword);
-
-
 }
