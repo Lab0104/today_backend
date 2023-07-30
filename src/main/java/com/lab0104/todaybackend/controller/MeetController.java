@@ -25,7 +25,6 @@ public class MeetController {
         this.meetService = meetService;
     }
 
-
     @GetMapping(value = "/{id}")
     @ApiOperation(value = "모임글 1건 조회", notes = "id에 해당하는 모임글 1건의 상세 정보를 조회합니다.")
     @ApiImplicitParam(name = "id", value = "모임 생성 시 자동으로 발급되는 id")

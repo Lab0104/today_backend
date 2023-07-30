@@ -38,16 +38,10 @@ public class Meet extends BaseEntity{
     @Column(nullable = false, columnDefinition = "TEXT")
     private String address;
 
-    @Column(name = "address_latitude")
-    private double addressLatitude;
-
-    @Column(name = "address_longitude")
-    private double addressLongitude;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id")
     @NonNull
-    private Category category;
+    private Category subCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -56,7 +50,7 @@ public class Meet extends BaseEntity{
 
     @Builder
     public Meet(String title, String subTitle, String content, LocalDateTime date, LocalDateTime deadline,
-                        int maximum, String address, double addressLatitude, double addressLongitude, Category category, User user){
+                        int maximum, String address, double addressLatitude, double addressLongitude, Category subCategory, User user){
         this.title = title;
         this.subTitle = subTitle;
         this.content = content;
@@ -64,9 +58,7 @@ public class Meet extends BaseEntity{
         this.deadline = deadline;
         this.maximum = maximum;
         this.address = address;
-        this.addressLatitude = addressLatitude;
-        this.addressLongitude = addressLongitude;
-        this.category = category;
+        this.subCategory = subCategory;
         this.user = user;
     }
 
