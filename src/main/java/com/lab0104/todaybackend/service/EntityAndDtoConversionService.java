@@ -12,12 +12,17 @@ import com.lab0104.todaybackend.data.repository.CategoryRepository;
 import com.lab0104.todaybackend.data.repository.MeetRepository;
 import com.lab0104.todaybackend.data.repository.UserRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Period;
 
 @Component
+@Transactional
 public class EntityAndDtoConversionService {
 
     final private MeetRepository meetRepository;
-
     final private UserRepository userRepository;
     final private CategoryRepository categoryRepository;
 
@@ -30,19 +35,16 @@ public class EntityAndDtoConversionService {
 
     //User Conversion
     public UserDTO.Info userEntityToDTO(User user){
-
         return UserDTO.Info.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .nickname(user.getNickname())
                 .address(user.getAddress())
-                .addressLatitude(user.getAddressLatitude())
-                .addressLongitude(user.getAddressLatitude())
                 .score(user.getScore())
                 .loginMethod(user.getLoginMethod())
                 .passwordKey(user.getPasswordKey())
                 .createdAt(user.getCreatedAt())
-                .updateAT(user.getUpdatedAt())
+                .updateAt(user.getUpdatedAt())
                 .build();
     }
     public User userDtoToEntity(UserDTO.Request userDTO){
@@ -51,9 +53,7 @@ public class EntityAndDtoConversionService {
                 .email(userDTO.getEmail())
                 .nickname(userDTO.getNickname())
                 .address(userDTO.getAddress())
-                .addressLatitude(userDTO.getAddressLatitude())
-                .addressLongitude(userDTO.getAddressLatitude())
-                .score(userDTO.getScore())
+                .score(0)
                 .loginMethod(userDTO.getLoginMethod())
                 .passwordKey(userDTO.getPasswordKey())
                 .build();
@@ -71,18 +71,17 @@ public class EntityAndDtoConversionService {
                 .date(meet.getDate())
                 .deadline(meet.getDeadline())
                 .maximum(meet.getMaximum())
-                .addressLatitude(meet.getAddressLatitude())
-                .addressLongitude(meet.getAddressLongitude())
-                .category(meet.getCategory().getId())
-                .user(meet.getUser().getId())
+                .topCategory(meet.getSubCategory().getCategoryGroup().getName())
+                .subCategory(meet.getSubCategory().getName())
+                .user(meet.getUser().getNickname())
+                .createdAt(meet.getCreatedAt())
+                .updateAt(meet.getUpdatedAt())
                 .build();
 
         return meetDTO;
     }
-    public Meet meetDtoToEntity(MeetDTO.Request meetDTO){
-        Category category = categoryRepository.getById(meetDTO.getCategory());
-        User user = userRepository.getById(meetDTO.getUser());
 
+    public Meet meetDtoToEntity(MeetDTO.Request meetDTO){
         Meet meet = Meet.builder()
                 .title(meetDTO.getTitle())
                 .subTitle(meetDTO.getSubTitle())
@@ -91,12 +90,66 @@ public class EntityAndDtoConversionService {
                 .deadline(meetDTO.getDeadline())
                 .maximum(meetDTO.getMaximum())
                 .address(meetDTO.getAddress())
-                .addressLatitude(meetDTO.getAddressLatitude())
-                .category(category)
-                .user(user)
+                .subCategory(categoryRepository.getById(meetDTO.getSubCategoryId()))
+                .user(userRepository.getById(meetDTO.getUserId()))
                 .build();
 
         return meet;
+    }
+
+    public MeetDTO.MainCard meetMainCardEntityToDTO(Meet meet){
+        Period diff = Period.between(LocalDateTime.now().toLocalDate(), meet.getDate().toLocalDate());
+        String limit;
+
+        if(diff.getDays() == 0){
+            limit = "D-DAY 마감임박";
+        } else if (diff.getDays() >= 1){
+            limit = "D - "+diff.getDays()+"모집중";
+        } else {
+            limit = "모집 마감";
+        }
+
+        return MeetDTO.MainCard.builder()
+                .limit(limit)
+                .topCategory(categoryRepository.getById(meet.getSubCategory().getId()).getCategoryGroup().getName())
+                .subCategory(categoryRepository.getById(meet.getSubCategory().getId()).getName())
+                .title(meet.getTitle())
+                .address(meet.getAddress())
+                .date(meet.getDate())
+                .build();
+    }
+
+    public MeetDTO.MapCard meetMapCardEntityToDTO(Meet meet){
+        Period setStatus = Period.between(LocalDateTime.now().toLocalDate(), meet.getDate().toLocalDate());
+        Duration setUploadAt = Duration.between(meet.getCreatedAt(), LocalDateTime.now());
+        String status;
+        String uploadAt;
+
+        //setStatus
+        if(setStatus.getDays() >= 0){
+            status = "모집중";
+        } else {
+            status = "모집 마감";
+        }
+
+        //setUploadAt
+        if(setUploadAt.toHours() >= 1){
+            //TODO: 하루 전이면 몇 일전으로 변경해야 함.
+            uploadAt = setUploadAt.toHours()+" 시간 전";
+        }else{
+            uploadAt = setUploadAt.toMinutes()+" 분 전";
+        }
+
+        return MeetDTO.MapCard.builder()
+                .title(meet.getTitle())
+                .topCategory(categoryRepository.getById(meet.getSubCategory().getId()).getCategoryGroup().getName())
+                .subCategory(categoryRepository.getById(meet.getSubCategory().getId()).toString())
+                .status(status)
+                .deadline(meet.getDeadline())
+                .address(meet.getAddress())
+                .date(meet.getDate())
+                .uploadAt(uploadAt)
+                .build();
     }
 
     //Member Conversion
@@ -129,9 +182,10 @@ public class EntityAndDtoConversionService {
                 .name(category.getName())
                 .depth(category.getDepth())
                 .imageUrl(category.getImageUrl())
-                .categoryGroup(category.getCategoryGroup().getId())
+                .categoryGroup(category.getCategoryGroup() == null?
+                        null : category.getCategoryGroup().getId())
                 .createdAt(category.getCreatedAt())
-                .updateAT(category.getUpdatedAt())
+                .updateAt(category.getUpdatedAt())
                 .build();
         return categoryDTO;
     }

@@ -68,7 +68,7 @@ public class MeetServiceImpl implements MeetService {
     public List<MeetDTO.Info> findList(int number, int size){
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageableWithSort = PageRequest.of(number, size, sort);
-        Page<MeetDTO.Info> response = meetRepository.findAll(pageableWithSort).map(MeetDTO::entityToDTOList);
+        Page<MeetDTO.Info> response = meetRepository.findAll(pageableWithSort).map(dataConversion::meetEntityToDTO);
 
         List<MeetDTO.Info> pageRequestDTO = new ArrayList<>();
         for (MeetDTO.Info i : response){
@@ -83,7 +83,7 @@ public class MeetServiceImpl implements MeetService {
 
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageableWithSort = PageRequest.of(number, size, sort);
-        Page<MeetDTO.Info> response = meetRepository.findByCategory(category, pageableWithSort).map(MeetDTO::entityToDTOList);
+        Page<MeetDTO.Info> response = meetRepository.findBySubCategory(category, pageableWithSort).map(dataConversion::meetEntityToDTO);
 
         List<MeetDTO.Info> pageRequestDTO = new ArrayList<>();
         for (MeetDTO.Info i : response){
@@ -98,10 +98,51 @@ public class MeetServiceImpl implements MeetService {
 
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageableWithSort = PageRequest.of(number, size, sort);
-        Page<MeetDTO.Info> response = meetRepository.findByUser(user, pageableWithSort).map(MeetDTO::entityToDTOList);
+        Page<MeetDTO.Info> response = meetRepository.findByUser(user, pageableWithSort).map(dataConversion::meetEntityToDTO);
 
         List<MeetDTO.Info> pageRequestDTO = new ArrayList<>();
         for (MeetDTO.Info i : response){
+            pageRequestDTO.add(i);
+        }
+        return pageRequestDTO;
+    }
+
+    @Override
+    public List<MeetDTO.MainCard> findListForMainCard(int number, int size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageableWithSort = PageRequest.of(number, size, sort);
+        Page<MeetDTO.MainCard> response = meetRepository.findAll(pageableWithSort).map(dataConversion::meetMainCardEntityToDTO);
+
+        List<MeetDTO.MainCard> pageRequestDTO = new ArrayList<>();
+        for (MeetDTO.MainCard i : response){
+            pageRequestDTO.add(i);
+        }
+        return pageRequestDTO;
+    }
+
+    @Override
+    public List<MeetDTO.MainCard> findMainCardListByCategory(int number, int size, long categoryId) {
+        Category category = categoryRepository.getById(categoryId);
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageableWithSort = PageRequest.of(number, size, sort);
+        Page<MeetDTO.MainCard> response = meetRepository.findBySubCategory(category, pageableWithSort).map(dataConversion::meetMainCardEntityToDTO);
+
+        List<MeetDTO.MainCard> pageRequestDTO = new ArrayList<>();
+        for (MeetDTO.MainCard i : response){
+            pageRequestDTO.add(i);
+        }
+        return pageRequestDTO;
+    }
+
+    @Override
+    public List<MeetDTO.MapCard> findListForMapCard(int number, int size, String keyword) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageableWithSort = PageRequest.of(number, size, sort);
+        Page<MeetDTO.MapCard> response = meetRepository.findByTitleContaining(keyword, pageableWithSort).map(dataConversion::meetMapCardEntityToDTO);
+
+        List<MeetDTO.MapCard> pageRequestDTO = new ArrayList<>();
+        for (MeetDTO.MapCard i : response){
             pageRequestDTO.add(i);
         }
         return pageRequestDTO;

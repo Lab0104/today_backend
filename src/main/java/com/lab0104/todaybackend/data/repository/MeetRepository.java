@@ -11,12 +11,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface MeetRepository extends JpaRepository<Meet, Long> {
-//    List<Meet> findByName(String name, Sort sort);
-//    Page<Meet> findAll(Meet meet, Pageable pageable);
-    Page<Meet> findById(long id, Pageable pageable);
-
-
-    Page<Meet> findByCategory(Category category, Pageable pageable);
+    Page<Meet> findBySubCategory(Category category, Pageable pageable);
     Page<Meet> findByUser(User user, Pageable pageable);
+    Page<Meet> findByTitleContaining(String keyword, Pageable pageable);
 }
 
