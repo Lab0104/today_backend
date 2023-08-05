@@ -1,13 +1,7 @@
 package com.lab0104.todaybackend.service;
 
-import com.lab0104.todaybackend.data.domain.Category;
-import com.lab0104.todaybackend.data.domain.Meet;
-import com.lab0104.todaybackend.data.domain.Member;
-import com.lab0104.todaybackend.data.domain.User;
-import com.lab0104.todaybackend.data.dto.CategoryDTO;
-import com.lab0104.todaybackend.data.dto.MeetDTO;
-import com.lab0104.todaybackend.data.dto.MemberDTO;
-import com.lab0104.todaybackend.data.dto.UserDTO;
+import com.lab0104.todaybackend.data.domain.*;
+import com.lab0104.todaybackend.data.dto.*;
 import com.lab0104.todaybackend.data.repository.CategoryRepository;
 import com.lab0104.todaybackend.data.repository.MeetRepository;
 import com.lab0104.todaybackend.data.repository.UserRepository;
@@ -201,4 +195,21 @@ public class EntityAndDtoConversionService {
 
         return category;
     }
+
+    public KeywordDTO.Info keywordEntityToDTO(Keyword keyword) {
+        KeywordDTO.Info keywordDTO = KeywordDTO.Info.builder()
+                .id(keyword.getId())
+                .keyword(keyword.getKeyword())
+                .build();
+        return keywordDTO;
+    }
+
+    public Keyword keywordDTOtoEntity(KeywordDTO.Request keywordDTO) {
+        Keyword keyword = Keyword.builder()
+                .keyword(keywordDTO.getKeyword())
+                .build();
+        return keyword;
+    }
+    // DTO->Entity : 데이터 정보를 Entity로 보내는 것이므로 id값은 자동 생성
+    // Entity->DTO : 여기서는, 데이터 정보를 전부 가져와서 출력하는 형태
 }
