@@ -22,4 +22,8 @@ public class Keyword {
         this.id = id;
         this.keyword = keyword;
     }
+
+    public void setIdForUpdate(Long id) {
+        this.id = id;
+    }
 }

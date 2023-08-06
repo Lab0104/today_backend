@@ -7,8 +7,6 @@ public interface KeywordService {
 
     KeywordDTO.Info findOne(Long id);
 
-    KeywordDTO.Info findAll();
-
     KeywordDTO.Info save(KeywordDTO.Request keywordDTO);
 
     KeywordDTO.Info update(Long id, KeywordDTO.Request keywordDTO);

@@ -26,30 +26,32 @@ public class KeywordServiceImpl implements KeywordService {
     @Override
     public KeywordDTO.Info findOne(Long id) {
         Keyword keyword = keywordRepository.getById(id);
+        KeywordDTO.Info keywordDTO = dataConversion.keywordEntityToDTO(keyword);
 
-
-        return null;
+        return keywordDTO;
     }
 
     @Override
-    public KeywordDTO.Info findAll() {
-//        List<Keyword> all = keywordRepository.findAll();
+    public KeywordDTO.Info save(KeywordDTO.Request request) {
+        Keyword keyword = keywordRepository.save(dataConversion.keywordDTOtoEntity(request));
+        KeywordDTO.Info keywordDTO = dataConversion.keywordEntityToDTO(keyword);
 
-        return null;
+        return keywordDTO;
     }
 
     @Override
-    public KeywordDTO.Info save(KeywordDTO.Request keywordDTO) {
-        return null;
-    }
+    public KeywordDTO.Info update(Long id, KeywordDTO.Request request) {
+        Keyword keyword = dataConversion.keywordDTOtoEntity(request);
+        keyword.setIdForUpdate(id);
+        Keyword save = keywordRepository.save(keyword);
+        KeywordDTO.Info keywordDTO = dataConversion.keywordEntityToDTO(save);
 
-    @Override
-    public KeywordDTO.Info update(Long id, KeywordDTO.Request keywordDTO) {
-        return null;
+        return keywordDTO;
+
     }
 
     @Override
     public void delete(Long id) throws Exception {
-
+        keywordRepository.deleteById(id);
     }
 }

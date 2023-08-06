@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
     public UserDTO.Info update(long id, UserDTO.Request userDTO) throws Exception {
         User user = dataConversion.userDtoToEntity(userDTO);
         user.setIdForUserUpdate(id);
-
         UserDTO.Info updateUserDTO = dataConversion.userEntityToDTO(userRepository.save(user));
 
         return updateUserDTO;
