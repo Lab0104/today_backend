@@ -1,13 +1,8 @@
 package com.lab0104.todaybackend.service;
 
-import com.lab0104.todaybackend.data.domain.Category;
-import com.lab0104.todaybackend.data.domain.Meet;
-import com.lab0104.todaybackend.data.domain.Member;
-import com.lab0104.todaybackend.data.domain.User;
-import com.lab0104.todaybackend.data.dto.CategoryDTO;
-import com.lab0104.todaybackend.data.dto.MeetDTO;
-import com.lab0104.todaybackend.data.dto.MemberDTO;
-import com.lab0104.todaybackend.data.dto.UserDTO;
+import com.lab0104.todaybackend.data.domain.*;
+import com.lab0104.todaybackend.data.dto.*;
+import com.lab0104.todaybackend.data.repository.BannerRepository;
 import com.lab0104.todaybackend.data.repository.CategoryRepository;
 import com.lab0104.todaybackend.data.repository.MeetRepository;
 import com.lab0104.todaybackend.data.repository.UserRepository;
@@ -25,11 +20,14 @@ public class EntityAndDtoConversionService {
     final private MeetRepository meetRepository;
     final private UserRepository userRepository;
     final private CategoryRepository categoryRepository;
+    final private BannerRepository bannerRepository;
 
-    public EntityAndDtoConversionService(MeetRepository meetRepository, UserRepository userRepository, CategoryRepository categoryRepository) {
+    public EntityAndDtoConversionService(MeetRepository meetRepository, UserRepository userRepository, CategoryRepository categoryRepository,
+                                         BannerRepository bannerRepository) {
         this.meetRepository = meetRepository;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
+        this.bannerRepository = bannerRepository;
     }
 
 
@@ -200,5 +198,34 @@ public class EntityAndDtoConversionService {
                 .build();
 
         return category;
+    }
+
+    // Banner Conversion
+    public BannerDTO.Info bannerEntityToDTO(Banner banner) {
+        BannerDTO.Info bannerDTO = BannerDTO.Info.builder()
+                .id(banner.getId())
+                .display_period(banner.getDisplay_period())
+                .title(banner.getTitle())
+                .contents(banner.getContents())
+                .image_url(banner.getImage_url())
+                .userName(banner.getUser().getNickname())
+                .meetName(banner.getMeet().getTitle())
+                .build();
+        return bannerDTO;
+    }
+
+    public Banner bannerDTOtoEntity(BannerDTO.Request bannerDTO) {
+        Meet meet = meetRepository.getById(bannerDTO.getMeet()); // DTO에서 Meet을 가져와서 id 조회한 값을 넘긴다.
+        User user = userRepository.getById(bannerDTO.getUser());
+
+        Banner banner = Banner.builder()
+                .display_period(bannerDTO.getDisplay_period())
+                .title(bannerDTO.getTitle())
+                .contents(bannerDTO.getContents())
+                .image_url(bannerDTO.getImage_url())
+                .user(user)
+                .meet(meet)
+                .build();
+        return banner;
     }
 }

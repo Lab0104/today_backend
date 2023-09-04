@@ -1,11 +1,9 @@
 package com.lab0104.todaybackend.data.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -39,4 +37,17 @@ public class Banner {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Builder
+    public Banner(LocalDateTime display_period, String title, String contents, long image_url,
+                  Meet meet, User user) {
+        this.display_period = display_period;
+        this.title = title;
+        this.contents = contents;
+        this.image_url = image_url;
+        this.meet = meet;
+        this.user = user;
+    }
 }
+
+
+

@@ -35,7 +35,10 @@ public class BannerDTO {
     public static class Request {
         private LocalDateTime display_period;
         private String title;
-
+        private String contents;
+        private Long image_url;
+        private long user;
+        private long meet;
     }
 
 }
